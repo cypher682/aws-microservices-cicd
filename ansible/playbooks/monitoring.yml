@@ -1,0 +1,58 @@
+---
+- name: Setup monitoring stack
+  hosts: ec2
+  become: yes
+
+  tasks:
+    - name: Install node-exporter
+      apt:
+        name: prometheus-node-exporter
+        state: present
+
+    - name: Start node-exporter
+      systemd:
+        name: prometheus-node-exporter
+        state: started
+        enabled: yes
+
+    - name: Create Grafana provisioning directory
+      file:
+        path: /home/ubuntu/app/monitoring/grafana/dashboards
+        state: directory
+        owner: ubuntu
+        group: ubuntu
+        mode: '0755'
+
+    - name: Copy Grafana dashboard config
+      copy:
+        content: |
+          apiVersion: 1
+          providers:
+            - name: 'Default'
+              orgId: 1
+              folder: ''
+              type: file
+              disableDeletion: false
+              editable: true
+              options:
+                path: /etc/grafana/provisioning/dashboards
+        dest: /home/ubuntu/app/monitoring/grafana/dashboards/dashboard.yml
+        owner: ubuntu
+        group: ubuntu
+        mode: '0644'
+
+    - name: Copy Grafana datasource config
+      copy:
+        content: |
+          apiVersion: 1
+          datasources:
+            - name: Prometheus
+              type: prometheus
+              access: proxy
+              url: http://prometheus:9090
+              isDefault: true
+              editable: true
+        dest: /home/ubuntu/app/monitoring/grafana/datasources.yml
+        owner: ubuntu
+        group: ubuntu
+        mode: '0644'

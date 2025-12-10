@@ -1,0 +1,68 @@
+---
+- name: Deploy microservices application
+  hosts: ec2
+  become: yes
+  vars:
+    app_dir: /home/ubuntu/app
+
+  tasks:
+    - name: Copy docker-compose file
+      copy:
+        src: ../../docker-compose.yml
+        dest: "{{ app_dir }}/docker-compose.yml"
+        owner: ubuntu
+        group: ubuntu
+        mode: '0644'
+
+    - name: Copy monitoring configuration
+      copy:
+        src: ../../monitoring/
+        dest: "{{ app_dir }}/monitoring/"
+        owner: ubuntu
+        group: ubuntu
+        mode: '0644'
+
+    - name: Login to Docker Hub
+      docker_login:
+        username: "{{ docker_username }}"
+        password: "{{ docker_password }}"
+      become_user: ubuntu
+
+    - name: Pull latest Docker images
+      command: docker-compose pull
+      args:
+        chdir: "{{ app_dir }}"
+      become_user: ubuntu
+
+    - name: Stop existing containers
+      command: docker-compose down
+      args:
+        chdir: "{{ app_dir }}"
+      become_user: ubuntu
+      ignore_errors: yes
+
+    - name: Start containers
+      command: docker-compose up -d
+      args:
+        chdir: "{{ app_dir }}"
+      become_user: ubuntu
+
+    - name: Wait for services to be healthy
+      wait_for:
+        port: "{{ item }}"
+        delay: 10
+        timeout: 60
+      loop:
+        - 3000
+        - 9090
+
+    - name: Cleanup unused Docker resources
+      command: docker system prune -f
+      become_user: ubuntu
+
+    - name: Verify API Gateway health
+      uri:
+        url: http://localhost:3000/health
+        status_code: 200
+      retries: 5
+      delay: 10
