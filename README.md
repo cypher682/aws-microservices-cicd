@@ -42,7 +42,7 @@ Production-ready microservices architecture with complete CI/CD pipeline, infras
 │                                                              │
 │  ┌─────────────────┐        ┌──────────────────┐           │
 │  │  DynamoDB       │        │  Route53         │           │
-│  │  - Users        │        │  api.cipherpol.xyz│          │
+│  │  - Users        │        │  api.yourname│          │
 │  │  - Products     │        └──────────────────┘           │
 │  └─────────────────┘                                        │
 │                                                              │
@@ -194,7 +194,7 @@ Access Grafana at https://api.yourdomain:3001
 - Username: admin
 - Password: admin
 
-Access Prometheus at https://api.cipherpol.xyz:9090
+Access Prometheus at https://api.domain:9090
 
 ## Project Structure
 
