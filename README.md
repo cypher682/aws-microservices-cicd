@@ -111,7 +111,7 @@ ssh-keygen -t rsa -b 4096 -f ~/.ssh/aws-microservices-key -N ""
 Add these secrets in GitHub repository settings:
 - `AWS_ACCESS_KEY_ID`
 - `AWS_SECRET_ACCESS_KEY`
-- `DOCKER_USERNAME`: cypher682
+- `DOCKER_USERNAME`: your-name
 - `DOCKER_PASSWORD`
 - `EC2_SSH_PRIVATE_KEY`
 - `API_KEY`: Generate with `openssl rand -hex 32`
@@ -171,26 +171,26 @@ aws ssm get-parameter --name /aws-microservices-cicd/api-key --with-decryption -
 ```bash
 export API_KEY="your-api-key"
 
-curl -H "X-API-Key: $API_KEY" https://api.cipherpol.xyz/health
+curl -H "X-API-Key: $API_KEY" https://api.domain/health
 
-curl -X POST https://api.cipherpol.xyz/users \
+curl -X POST https://api.domain/users \
   -H "X-API-Key: $API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"email": "test@example.com", "name": "Test User", "age": 25}'
 
-curl -H "X-API-Key: $API_KEY" https://api.cipherpol.xyz/users
+curl -H "X-API-Key: $API_KEY" https://api.domain/users
 
-curl -X POST https://api.cipherpol.xyz/products \
+curl -X POST https://api.domain/products \
   -H "X-API-Key: $API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"name": "Product A", "description": "Test product", "price": 99.99, "category": "Electronics", "stock": 100}'
 
-curl -H "X-API-Key: $API_KEY" https://api.cipherpol.xyz/products
+curl -H "X-API-Key: $API_KEY" https://api.domain/products
 ```
 
 ## Monitoring
 
-Access Grafana at https://api.cipherpol.xyz:3001
+Access Grafana at https://api.yourdomain:3001
 - Username: admin
 - Password: admin
 
@@ -241,7 +241,7 @@ ssh -i ~/.ssh/aws-microservices-key ubuntu@<EC2_IP>
 ### SSL Certificate Issues
 ```bash
 ssh -i ~/.ssh/aws-microservices-key ubuntu@<EC2_IP>
-sudo certbot --nginx -d api.cipherpol.xyz
+sudo certbot --nginx -d "api.yourdomain"
 ```
 
 ### Container Issues
