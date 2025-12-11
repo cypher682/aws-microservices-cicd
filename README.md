@@ -34,7 +34,7 @@ Production-ready microservices architecture with complete CI/CD pipeline, infras
 │  │  │  └───────────────────────────────┘      │     │    │
 │  │  │                                           │     │    │
 │  │  │  ┌──────────────────────────────┐       │     │    │
-│  │  │  │  Grafana (Port: 3000)        │       │     │    │
+│  │  │  │  Grafana (Port: 3001)        │       │     │    │
 │  │  │  └──────────────────────────────┘       │     │    │
 │  │  └───────────────────────────────────────────┘    │    │
 │  │                                                     │    │
@@ -190,7 +190,7 @@ curl -H "X-API-Key: $API_KEY" https://api.cipherpol.xyz/products
 
 ## Monitoring
 
-Access Grafana at https://api.cipherpol.xyz:3000
+Access Grafana at https://api.cipherpol.xyz:3001
 - Username: admin
 - Password: admin
 

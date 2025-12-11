@@ -54,6 +54,7 @@
         timeout: 60
       loop:
         - 3000
+        - 3001
         - 9090
 
     - name: Cleanup unused Docker resources

@@ -96,7 +96,7 @@
         - { rule: 'allow', port: '22',   proto: 'tcp' }
         - { rule: 'allow', port: '80',   proto: 'tcp' }
         - { rule: 'allow', port: '443',  proto: 'tcp' }
-        - { rule: 'allow', port: '3000', proto: 'tcp' }
+        - { rule: 'allow', port: '3001', proto: 'tcp' }
         - { rule: 'allow', port: '9090', proto: 'tcp' }
 
     - name: Enable UFW
