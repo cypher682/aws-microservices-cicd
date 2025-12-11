@@ -35,7 +35,7 @@ async function loadApiKey() {
   if (!API_KEY) {
     try {
       const command = new GetParameterCommand({
-        Name: '/aws-microservices-cicd/api-key',
+        Name: '/app/microservices-cicd/api-key',
         WithDecryption: true
       });
       const response = await ssmClient.send(command);

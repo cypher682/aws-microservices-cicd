@@ -26,7 +26,8 @@ resource "aws_instance" "app" {
   iam_instance_profile   = aws_iam_instance_profile.ec2.name
 
   tags = {
-    Name = "aws-microservices-cicd"
+    Name    = "aws-microservices-cicd"
+    Project = "aws-microservices-cicd"
   }
 
 
