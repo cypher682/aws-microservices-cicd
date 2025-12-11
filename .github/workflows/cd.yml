@@ -66,6 +66,11 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ steps.get-ip.outputs.instance_ip }} >> ~/.ssh/known_hosts
 
+      - name: Copy docker-compose and configs
+        run: |
+          scp -i ~/.ssh/id_rsa docker-compose.yml ubuntu@${{ steps.get-ip.outputs.instance_ip }}:/home/ubuntu/app/
+          scp -i ~/.ssh/id_rsa -r monitoring ubuntu@${{ steps.get-ip.outputs.instance_ip }}:/home/ubuntu/app/
+
       - name: Deploy to EC2
         run: |
           ssh -i ~/.ssh/id_rsa ubuntu@${{ steps.get-ip.outputs.instance_ip }} << 'EOF'
