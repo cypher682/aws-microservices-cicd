@@ -52,7 +52,7 @@ resource "aws_iam_role_policy" "ssm" {
         "ssm:GetParameters",
         "ssm:GetParametersByPath"
       ]
-      Resource = "arn:aws:ssm:${var.aws_region}:${data.aws_caller_identity.current.account_id}:parameter/${var.project_name}/*"
+      Resource = "arn:aws:ssm:${var.aws_region}:${data.aws_caller_identity.current.account_id}:parameter/app/*"
     }]
   })
 }
