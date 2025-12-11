@@ -16,6 +16,7 @@ resource "aws_key_pair" "deployer" {
   public_key = file(var.ssh_public_key_path)
 }
 
+
 resource "aws_instance" "app" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = var.instance_type
@@ -23,6 +24,11 @@ resource "aws_instance" "app" {
   vpc_security_group_ids = [aws_security_group.ec2.id]
   subnet_id              = aws_subnet.public.id
   iam_instance_profile   = aws_iam_instance_profile.ec2.name
+
+  tags = {
+    Name = "aws-microservices-cicd"
+  }
+
 
   root_block_device {
     volume_size = 20
