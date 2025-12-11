@@ -1,7 +1,7 @@
 package main
 
 import (
-	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -204,9 +204,9 @@ func updateProduct(c *gin.Context) {
 		ExpressionAttributeValues: map[string]*dynamodb.AttributeValue{
 			":name":    {S: aws.String(product.Name)},
 			":desc":    {S: aws.String(product.Description)},
-			":price":   {N: aws.String(json.Number(product.Price).String())},
+			":price":   {N: aws.String(fmt.Sprintf("%f", product.Price))},
 			":cat":     {S: aws.String(product.Category)},
-			":stock":   {N: aws.String(json.Number(product.Stock).String())},
+			":stock":   {N: aws.String(fmt.Sprintf("%d", product.Stock))},
 			":updated": {S: aws.String(product.UpdatedAt)},
 		},
 		ConditionExpression: aws.String("attribute_exists(productId)"),
